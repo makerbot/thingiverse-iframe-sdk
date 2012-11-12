@@ -45,12 +45,26 @@ var TV = (function() {
 
   // dialogs
 
-  // params: thing_id, [extension]
-  // returns: thing_id and file_id
-  self.fileSelect = function(params, callback) {
+  /*
+  Dialog Names:
+    file_select
+      params: thing_id, [extensions]
+      returns: thing_id and file_id
+    thing_select
+      params: TODO:
+      returns: thing_id
+    thing_create
+      params: TODO: default values for fields...
+      returns: thing_id
+    thing_search
+      params: TODO: q
+      returns: thing_id
+  */
+  
+  self.dialog = function(dialog_name, params, callback) {
     self.sendMessage(
       {
-    	  cmd: 'file_select',
+    	  cmd: dialog_name,
     	  params: params
   	  },
   	  callback

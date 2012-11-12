@@ -52,7 +52,7 @@
 		
 		<input type="button" value="Select My Things"/>
 		<input type="button" value="Select My Things (filtered)"/>
-		<input type="button" value="Select Thing File (filtered)" onclick="TV.fileSelect({thing_id: 12405, extension: 'stl'}, gotFile)"/>
+		<input type="button" value="Select Thing File (filtered)" onclick="TV.dialog('file_select', {thing_id: 12405, extensions: ['stl']}, gotFile)"/>
 		<input type="button" value="Search Things"/>
 		<input type="button" value="List Specific Things"/>
 		<input type="button" value="Create a New Thing"/>
