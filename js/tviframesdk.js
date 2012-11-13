@@ -22,7 +22,7 @@ var TV = (function() {
     msg = JSON.parse(data);
     
     if ($.inArray(msg.callback, Object.keys(self.callbacks)) > -1) {      
-      self.callbacks[msg.callback](msg);
+      self.callbacks[msg.callback](msg.result);
       delete self.callbacks[msg.callback];
     } else {
       self.log('Received Unknown Callback: "' + msg.callback + '" Data: ' + data);
@@ -48,13 +48,13 @@ var TV = (function() {
   /*
   Dialog Names:
     file_select
-      params: thing_id, [extensions]
+      params: thing_id, [extension (optional comma delimited list)]
       returns: thing_id and file_id
     thing_select
       params: TODO:
       returns: thing_id
     thing_create
-      params: TODO: default values for fields...
+      params: name, description, category, tags, license, is_published, is_wip
       returns: thing_id
     thing_search
       params: TODO: q
@@ -74,8 +74,16 @@ var TV = (function() {
   // api
   
   self.api = function(path, params, callback, error) {
+    if (params.method) {
+      method = params.method;
+    } else {
+      method = 'GET';
+    }
+    
     $.ajax({
 			url: self.opts.api_url + path,
+			type: method,
+			data: params,
 			dataType: 'json',
 			headers: { 'Authorization' : 'Bearer ' + self.opts.access_token },
 			success: callback,

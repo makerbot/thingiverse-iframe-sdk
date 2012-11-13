@@ -49,13 +49,22 @@
 		<input id="message_test" type="button" value="Test Post Message" onclick="TV.sendMessage({cmd: 'echo', params: {foo: 'bar'}}, gotEcho)"/>
 		
 		<h2>Dialogs</h2>
+
+		<input type="button" value="Select File" onclick="TV.dialog('file_select', {thing_id: 12405}, gotFile)"/>
+		<input type="button" value="Select File (filtered)" onclick="TV.dialog('file_select', {thing_id: 12405, extension: 'stl,obj'}, gotFile)"/>
+
+		<br/>
 		
-		<input type="button" value="Select My Things"/>
-		<input type="button" value="Select My Things (filtered)"/>
-		<input type="button" value="Select Thing File (filtered)" onclick="TV.dialog('file_select', {thing_id: 12405, extensions: ['stl']}, gotFile)"/>
-		<input type="button" value="Search Things"/>
-		<input type="button" value="List Specific Things"/>
-		<input type="button" value="Create a New Thing"/>
+		<input type="button" value="Select My Things" onclick="TV.dialog('thing_select', {}, gotThing)"/>
+		<input type="button" value="Select My Things (filtered)" onclick="TV.dialog('thing_select', {tab: 'favorites', q: 'gnomes'}, gotThing)"/>
+		
+		<br/>
+		
+		<input type="button" value="Search Things" onclick="TV.dialog('thing_search', {q: 'gnomes'}, gotThing)"/>
+		
+		<br/>
+		
+		<input type="button" value="Create a New Thing" onclick="TV.dialog('thing_create', {name: 'Awesome Thing', description: 'Foo Bar', category: 'Model Robots', tags: 'iframe, app', license: 'cc-sa', published: false}, createdThing)"/>
 		
 		<h2>API</h2>
 		
