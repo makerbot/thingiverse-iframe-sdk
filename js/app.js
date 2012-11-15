@@ -1,22 +1,48 @@
+// iframe communication debugging button
+
 function gotEcho(data) {
   TV.log('gotEcho: ' + JSON.stringify(data));
 }
 
+// dialog callbacks
+
+function selectedFile(data) {
+  TV.log('selectedFile: ' + JSON.stringify(data));
+
+  if (data.status != 'cancelled') {
+    TV.api('/things/' + data.thing_id, {}, gotThing);
+    TV.api('/things/' + data.thing_id + '/files/' + data.file_id, {}, gotFile);
+  }
+}
+
+function selectedThing(data) {
+  TV.log('selectedThing: ' + JSON.stringify(data));
+
+  if (data.status != 'cancelled') {
+    TV.api('/things/' + data.thing_id, {}, gotThing);
+  }
+}
+
+function createdThing(data) {
+  TV.log('createdThing: ' + JSON.stringify(data));
+  
+  if (data.status != 'cancelled') {
+    TV.api('/things/' + data.thing_id, {}, gotThing);
+  }
+}
+
+// api callbacks
+
 function gotFile(data) {
   TV.log('gotFile: ' + JSON.stringify(data));
 
-  if (data.msg != 'cancelled') {
-    $('#file').html('<img src="' + data.thumbnail + '"/><br/><a href="' + data.url + '">' + data.name + '</a>');
-    gotThing(data.thing);
-  }
+  $('#file').html('<img src="' + data.thumbnail + '"/><br/><a href="' + data.url + '">' + data.name + '</a>');
 }
 
 function gotThing(data) {
   TV.log('gotThing: ' + JSON.stringify(data));
 
-  if (data.msg != 'cancelled') {
-    $('#thing').html('<img src="' + data.thumbnail + '"/><br/><a href="' + data.url + '">' + data.name + '</a>');
-  }
+  $('#thing').html('<img src="' + data.thumbnail + '"/><br/><a href="' + data.url + '">' + data.name + '</a>');
 }
 
 function gotNewest(data) {
@@ -24,23 +50,11 @@ function gotNewest(data) {
   
   TV.log('gotNewest: ' + JSON.stringify(newest));
   
-  if (data.msg != 'cancelled') {
-    $('#thing').html('<img src="' + newest.thumbnail + '"/><br/><a href="' + newest.url + '">' + newest.name + '</a>');
-  }
+  $('#thing').html('<img src="' + newest.thumbnail + '"/><br/><a href="' + newest.url + '">' + newest.name + '</a>');
 }
 
 function gotUser(data) {
   TV.log('gotUser: ' + JSON.stringify(data));
   
-  if (data.msg != 'cancelled') {  
-    $('#user').html('<img src="' + data.thumbnail + '"/><br/><a href="' + data.url + '">' + data.name + '</a>');
-  }
-}
-
-function createdThing(data) {
-  TV.log('createdThing: ' + JSON.stringify(data));
-  
-  if (data.msg != 'cancelled') {
-    gotThing(data);
-  }
+  $('#user').html('<img src="' + data.thumbnail + '"/><br/><a href="' + data.url + '">' + data.name + '</a>');
 }

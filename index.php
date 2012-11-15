@@ -50,17 +50,17 @@
 		
 		<h2>Dialogs</h2>
 
-		<input type="button" value="Select File" onclick="TV.dialog('file_select', {thing_id: 12405}, gotFile)"/>
-		<input type="button" value="Select File (filtered)" onclick="TV.dialog('file_select', {thing_id: 12405, extension: 'stl,obj'}, gotFile)"/>
+		<input type="button" value="Select File" onclick="TV.dialog('file_select', {thing_id: 12405}, selectedFile)"/>
+		<input type="button" value="Select File (filtered)" onclick="TV.dialog('file_select', {thing_id: 12405, extension: 'stl,obj'}, selectedFile)"/>
 
 		<br/>
 		
-		<input type="button" value="Select My Things" onclick="TV.dialog('thing_select', {}, gotThing)"/>
-		<input type="button" value="Select My Things (filtered)" onclick="TV.dialog('thing_select', {tab: 'favorites', q: 'gnomes'}, gotThing)"/>
+		<input type="button" value="Select My Things" onclick="TV.dialog('thing_select', {}, selectedThing)"/>
+		<input type="button" value="Select My Things (filtered)" onclick="TV.dialog('thing_select', {tab: 'favorites', q: 'gnomes'}, selectedThing)"/>
 		
 		<br/>
 		
-		<input type="button" value="Search Things" onclick="TV.dialog('thing_search', {q: 'gnomes'}, gotThing)"/>
+		<input type="button" value="Search Things" onclick="TV.dialog('thing_search', {q: 'gnomes'}, selectedThing)"/>
 		
 		<br/>
 		
