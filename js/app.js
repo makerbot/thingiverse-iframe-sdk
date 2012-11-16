@@ -24,11 +24,11 @@ function selectedThing(data) {
 }
 
 function createdThing(data) {
-  TV.log('createdThing: ' + JSON.stringify(data));
-  
-  if (data.status != 'cancelled') {
-    TV.api('/things/' + data.thing_id, {}, gotThing);
-  }
+  TV.log('createdThing: ' + JSON.stringify(data));  
+}
+
+function savedThing(data) {
+  TV.log('savedThing: ' + JSON.stringify(data));  
 }
 
 // api callbacks

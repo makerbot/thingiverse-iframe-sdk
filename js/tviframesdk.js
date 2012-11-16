@@ -53,9 +53,9 @@ var TV = (function() {
     thing_select
       params: TODO:
       returns: thing_id
-    thing_create
-      params: name, description, category, tags, license, is_published, is_wip
-      returns: thing_id
+    thing_save
+      params: [id] (optional, for editing an existing thing), name, description, category, tags, license, is_published, is_wip
+      returns: hash of entered values to be sent to api
     thing_search
       params: TODO: q
       returns: thing_id

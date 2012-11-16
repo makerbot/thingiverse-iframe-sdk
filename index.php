@@ -64,7 +64,8 @@
 		
 		<br/>
 		
-		<input type="button" value="Create a New Thing" onclick="TV.dialog('thing_create', {name: 'Awesome Thing', description: 'Foo Bar', category: 'Model Robots', tags: 'iframe, app', license: 'cc-sa', published: false}, createdThing)"/>
+		<input type="button" value="Create a New Thing" onclick="TV.dialog('thing_save', {name: 'Awesome Thing', description: 'Foo Bar', category: 'Model Robots', tags: 'iframe, app', license: 'cc-sa', is_published: 1}, createdThing)"/>
+		<input type="button" value="Edit a Thing" onclick="TV.dialog('thing_save', {id: 12405}, savedThing)"/>
 		
 		<h2>API</h2>
 		
