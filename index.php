@@ -56,7 +56,6 @@
 		<br/>
 		
 		<input type="button" value="Select My Things" onclick="TV.dialog('thing_select', {}, selectedThing)"/>
-		<input type="button" value="Select My Things (filtered)" onclick="TV.dialog('thing_select', {tab: 'favorites', q: 'gnomes'}, selectedThing)"/>
 		
 		<br/>
 		
