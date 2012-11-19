@@ -60,7 +60,8 @@
 		
 		<br/>
 		
-		<input type="button" value="Search Things" onclick="TV.dialog('thing_search', {q: 'gnomes'}, selectedThing)"/>
+		<input type="button" value="Search Things" onclick="TV.dialog('thing_search', {}, selectedThing)"/>
+		<input type="button" value="Search 'makerbot'" onclick="TV.dialog('thing_search', {q: 'makerbot'}, selectedThing)"/>
 		
 		<br/>
 		
