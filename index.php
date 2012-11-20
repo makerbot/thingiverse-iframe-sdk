@@ -30,7 +30,7 @@
 		<script src="js/app.js"></script>
 	</head>
 	<body>
-		<div style="float:right;width:35%">
+		<div style="float:right;width:50%">
 			<h3>Access Token</h3>
 			<p><?= $access_token ?></p>
 			

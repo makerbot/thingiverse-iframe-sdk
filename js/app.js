@@ -36,13 +36,13 @@ function savedThing(data) {
 function gotFile(data) {
   TV.log('gotFile: ' + JSON.stringify(data));
 
-  $('#file').html('<img src="' + data.thumbnail + '"/><br/><a href="' + data.public_url + '" target="_blank">' + data.name + '</a>');
+  $('#file').html('<img src="' + data.thumbnail + '"/><a href="' + data.public_url + '" target="_blank">' + data.name + '</a>');
 }
 
 function gotThing(data) {
   TV.log('gotThing: ' + JSON.stringify(data));
 
-  $('#thing').html('<img src="' + data.thumbnail + '"/><br/><a href="' + data.public_url + '" target="_blank">' + data.name + '</a>');
+  $('#thing').html('<img src="' + data.thumbnail + '"/><a href="' + data.public_url + '" target="_blank">' + data.name + '</a><input type="button" value="Select File" onclick="TV.dialog(\'file_select\', {thing_id: ' + data.id + '}, selectedFile)"/>');
 }
 
 function gotNewest(data) {
@@ -50,13 +50,13 @@ function gotNewest(data) {
   
   TV.log('gotNewest: ' + JSON.stringify(newest));
   
-  $('#thing').html('<img src="' + newest.thumbnail + '"/><br/><a href="' + newest.public_url + '" target="_blank">' + newest.name + '</a>');
+  $('#thing').html('<img src="' + newest.thumbnail + '"/><a href="' + newest.public_url + '" target="_blank">' + newest.name + '</a>');
 }
 
 function gotUser(data) {
   TV.log('gotUser: ' + JSON.stringify(data));
   
-  $('#user').html('<img src="' + data.thumbnail + '"/><br/><a href="' + data.public_url + '" target="_blank">' + data.name + '</a>');
+  $('#user').html('<img src="' + data.thumbnail + '"/><a href="' + data.public_url + '" target="_blank">' + data.name + '</a>');
 }
 
 function gotApi(data) {
