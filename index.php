@@ -55,11 +55,11 @@
 
 		<br/>
 		
-		<input type="button" value="Select My Things" onclick="TV.dialog('thing_select', {}, selectedThing)"/>
+		<input type="button" value="Select My Things" onclick="TV.dialog('thing_select', selectedThing)"/>
 		
 		<br/>
 		
-		<input type="button" value="Search Things" onclick="TV.dialog('thing_search', {}, selectedThing)"/>
+		<input type="button" value="Search Things" onclick="TV.dialog('thing_search', selectedThing)"/>
 		<input type="button" value="Search 'makerbot'" onclick="TV.dialog('thing_search', {q: 'makerbot'}, selectedThing)"/>
 		
 		<br/>
@@ -69,7 +69,8 @@
 		
 		<h2>API</h2>
 		
-		<input type="button" value="Get Latest Thing" onclick="TV.api('/newest', {}, gotNewest)"/>
+		<input type="button" value="Get Latest Thing" onclick="TV.api('/newest', gotNewest)"/>
+		<input type="button" value="Get Tags" onclick="TV.api('/tags', gotApi)"/>
 		
 		<script>
 			TV.init({

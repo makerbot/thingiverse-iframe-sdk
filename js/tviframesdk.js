@@ -62,20 +62,36 @@ var TV = (function() {
   */
   
   self.dialog = function(dialog_name, params, callback) {
+    if (typeof params === 'function') {
+      _callback = params;
+      _params = callback || {};
+    } else {
+      _callback = callback;
+      _params = params || {};
+    }
+    
     self.sendMessage(
       {
     	  cmd: dialog_name,
-    	  params: params
+    	  params: _params
   	  },
-  	  callback
+  	  _callback
   	);
   }
 
   // api
   
-  self.api = function(path, params, callback, error) {
+  self.api = function(path, params, callback) {
+    if (typeof params === 'function') {
+      _callback = params;
+      _params = callback || {};
+    } else {
+      _callback = callback;
+      _params = params || {};
+    }
+    
     if (params.method) {
-      method = params.method;
+      method = _params.method;
     } else {
       method = 'GET';
     }
@@ -83,11 +99,11 @@ var TV = (function() {
     $.ajax({
 			url: self.opts.api_url + path,
 			type: method,
-			data: params,
+			data: _params,
 			dataType: 'json',
 			headers: { 'Authorization' : 'Bearer ' + self.opts.access_token },
-			success: callback,
-			error: error
+			success: _callback,
+			cache: false
 		});
   }
 
