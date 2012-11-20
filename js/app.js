@@ -36,7 +36,7 @@ function savedThing(data) {
 function gotFile(data) {
   TV.log('gotFile: ' + JSON.stringify(data));
 
-  $('#file').html('<img src="' + data.thumbnail + '"/><br/><a href="' + data.download_url + '" target="_blank">' + data.name + '</a>');
+  $('#file').html('<img src="' + data.thumbnail + '"/><br/><a href="' + data.public_url + '" target="_blank">' + data.name + '</a>');
 }
 
 function gotThing(data) {
