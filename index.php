@@ -1,5 +1,7 @@
 <?php
+	// live site = http://thingiverse.com/login/oauth/access_token
 	$auth_url = 'http://thingiverse.dev:8888/login/oauth/access_token';
+	// set client id and secret to your own app!
 	$client_id = 'd1039c7beaa77f69aa6d';
 	$client_secret = 'a24ab8620ad63fbc99794242f7e08aa0';
 	$code = $_GET['code'];
@@ -71,8 +73,10 @@
 		
 		<input type="button" value="Get Latest Thing" onclick="TV.api('/newest', gotNewest)"/>
 		<input type="button" value="Get Tags" onclick="TV.api('/tags', gotApi)"/>
+		<input type="button" value="Test Absolute URL" onclick="TV.api('http://api.thingiverse.dev:8888/things/23338', gotThing)"/>
 		
 		<script>
+			// api_url, target_url, and target are optional - set here for dev environment
 			TV.init({
 				access_token: '<?= $access_token ?>',
 				api_url: 'http://api.thingiverse.dev:8888',
@@ -80,7 +84,7 @@
 				target: parent
 			});
 			
-			TV.api('/users/me', {}, gotUser);
+			TV.api('/users/me', gotUser);
 		</script>
 	</body>
 </html>

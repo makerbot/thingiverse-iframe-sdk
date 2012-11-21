@@ -1,19 +1,26 @@
 var TV = (function() {
-	var self = {};
+  var self = {};
 
   self.opts = {};
 
   self.callbacks = {};
 
   self.init = function(opts) {
-    self.opts = opts;
+    defaults = {
+      api_url: 'https://api.thingiverse.com',
+      target_url: 'http://thingiverse.com',
+      target: parent
+    };
+    
+    $.extend(defaults, opts);
+    self.opts = defaults;
     
     $.receiveMessage(
-  		function(msg) {
-  			self.receiveMessage(msg.data);
-  		},
-  		self.opts.target_url
-  	);
+      function(msg) {
+        self.receiveMessage(msg.data);
+      },
+      self.opts.target_url
+    );
   }
 
   // communication
@@ -37,10 +44,10 @@ var TV = (function() {
     msg = JSON.stringify(data);
     
     $.postMessage(
-  		msg,
-  		self.opts.target_url,
-  		self.opts.target
-  	);
+      msg,
+      self.opts.target_url,
+      self.opts.target
+    );
   }
 
   // dialogs
@@ -72,11 +79,11 @@ var TV = (function() {
     
     self.sendMessage(
       {
-    	  cmd: dialog_name,
-    	  params: _params
-  	  },
-  	  _callback
-  	);
+        cmd: dialog_name,
+        params: _params
+      },
+      _callback
+    );
   }
 
   // api
@@ -96,15 +103,20 @@ var TV = (function() {
       method = 'GET';
     }
     
+    if (/^http.*/.test(path)) {
+      url = path;
+    } else {
+      url = self.opts.api_url + path;
+    }
+    
     $.ajax({
-			url: self.opts.api_url + path,
-			type: method,
-			data: _params,
-			dataType: 'json',
-			headers: { 'Authorization' : 'Bearer ' + self.opts.access_token },
-			success: _callback,
-			cache: false
-		});
+      url: url,
+      type: method,
+      data: _params,
+      dataType: 'json',
+      headers: { 'Authorization' : 'Bearer ' + self.opts.access_token },
+      success: _callback
+    });
   }
 
   // utility
@@ -114,10 +126,10 @@ var TV = (function() {
       console.log('[APP] ' + msg);
     }
   }  
-	
-	self.guid = function() {
-		return 'f' + (Math.random() * (1<<30)).toString(16).replace('.', '');
-	}
-	
-	return self;
+
+  self.guid = function() {
+    return 'f' + (Math.random() * (1<<30)).toString(16).replace('.', '');
+  }
+
+  return self;
 }());

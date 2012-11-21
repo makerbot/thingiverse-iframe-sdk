@@ -10,8 +10,8 @@ function selectedFile(data) {
   TV.log('selectedFile: ' + JSON.stringify(data));
 
   if (data.status != 'cancelled') {
-    TV.api('/things/' + data.thing_id, {}, gotThing);
-    TV.api('/things/' + data.thing_id + '/files/' + data.file_id, {}, gotFile);
+    TV.api('/things/' + data.thing_id, gotThing);
+    TV.api('/things/' + data.thing_id + '/files/' + data.file_id, gotFile);
   }
 }
 
@@ -19,7 +19,7 @@ function selectedThing(data) {
   TV.log('selectedThing: ' + JSON.stringify(data));
 
   if (data.status != 'cancelled') {
-    TV.api('/things/' + data.thing_id, {}, gotThing);
+    TV.api('/things/' + data.thing_id, gotThing);
   }
 }
 
@@ -50,7 +50,7 @@ function gotNewest(data) {
   
   TV.log('gotNewest: ' + JSON.stringify(newest));
   
-  $('#thing').html('<img src="' + newest.thumbnail + '"/><a href="' + newest.public_url + '" target="_blank">' + newest.name + '</a>');
+  gotThing(newest);
 }
 
 function gotUser(data) {
