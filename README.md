@@ -86,7 +86,7 @@ Provides a way to access the Thingiverse API endpoints (currently read-only GET 
 
     TV.api('/newest', function(data) {
       newest_thing = data[0];
-      alert('gotNewest: ' + JSON.stringify(newest));
+      alert('gotNewest: ' + JSON.stringify(newest_thing));
     });
 
 Utility
