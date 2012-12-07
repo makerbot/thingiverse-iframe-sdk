@@ -17,9 +17,19 @@
 			))
 		)
 	));
+	
+	// quick error checking...
+	// file_get_contents raises a warning instead of throwing an exception :(
+	set_error_handler("warning_handler", E_WARNING);
 	$result = file_get_contents($auth_url, false, $context);
+	restore_error_handler();
+	
 	parse_str($result, $result_array);
 	$access_token = $result_array['access_token'];
+	
+	function warning_handler($errno, $errstr) {
+		print "Error $errno: $errstr";
+	}
 ?>
 <!doctype html>
 <html>
