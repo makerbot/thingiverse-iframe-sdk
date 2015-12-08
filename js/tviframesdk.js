@@ -27,8 +27,7 @@ var TV = (function() {
 
   self.receiveMessage = function(data) {
     msg = JSON.parse(data);
-    
-    if ($.inArray(msg.callback, Object.keys(self.callbacks)) > -1) {      
+    if ($.inArray(msg.callback, Object.keys(self.callbacks)) > -1) {
       self.callbacks[msg.callback](msg.result);
       delete self.callbacks[msg.callback];
     } else {
@@ -37,7 +36,7 @@ var TV = (function() {
   }
   
   self.sendMessage = function(data, callback) {
-    data.params.access_code = self.opts.access_code;    
+    data.params.access_code = self.opts.access_code;
     data.params.callback = TV.guid();
     self.callbacks[data.params.callback] = callback;
     
@@ -66,6 +65,9 @@ var TV = (function() {
     thing_search
       params: TODO: q
       returns: thing_id
+    payment
+      params: thing_id, amount, charges.thingiverse, charges.app
+      returns: order_id
   */
   
   self.dialog = function(dialog_name, params, callback) {
