@@ -66,8 +66,11 @@ var TV = (function() {
       params: TODO: q
       returns: thing_id
     payment
-      params: thing_id, amount, charges.thingiverse, charges.app
-      returns: order_id
+      params: thing_id - int Thing ID
+              amount - int Total amount in USD
+              charges - object of charges breakdown {'Fee Name': int amount in USD}
+              address - boolean true to collect address information for an order
+      returns: order_id or error string
   */
   
   self.dialog = function(dialog_name, params, callback) {
