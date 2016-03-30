@@ -65,11 +65,13 @@ var TV = (function() {
     thing_search
       params: TODO: q
       returns: thing_id
+    address
+      returns: address_id
     payment
       params: thing_id - int Thing ID
               amount - int Total amount in USD
               charges - object of charges breakdown {'Fee Name': int amount in USD}
-              address - boolean true to collect address information for an order
+              address_id - int address id to use for shipping address
       returns: order_id or error string
   */
   
