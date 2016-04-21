@@ -36,7 +36,7 @@ var TV = (function() {
   }
   
   self.sendMessage = function(data, callback) {
-    data.params.access_code = self.opts.access_code;
+    data.params.access_token = self.opts.access_token;
     data.params.callback = TV.guid();
     self.callbacks[data.params.callback] = callback;
     
@@ -71,6 +71,7 @@ var TV = (function() {
       params: thing_id - int Thing ID
               amount - int Total amount in USD
               charges - object of charges breakdown {'Fee Name': int amount in USD}
+                      - Use 'Shipping' for shipping charges
               address_id - int address id to use for shipping address
       returns: order_id or error string
   */
