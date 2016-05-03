@@ -1,7 +1,7 @@
 Thingiverse Iframe Javascript SDK
 =================================
 
-This SDK allows your iframe app to talk to Thingiverse using javascript.  It provides a way to display a number of pre-built [Dialogs](#dialogs) as well as communicate with the [API](#api).
+This SDK allows your iframe app to talk to Thingiverse using javascript. It provides a way to display a number of pre-built [Dialogs](#dialogs) as well as communicate with the [API](#api).
 
 Setup
 -----
@@ -17,20 +17,22 @@ In addition to the tviframesdk, it also requires [json2](https://github.com/doug
 
 ### Init
 
-This will load the SDK and sets all the default options.  Only `access_token` is required.  Replace this with the oauth token retrieved from `http://thingiverse.com/login/oauth/access_token`. (this should be done server side in order to keep your app's `client_secret` hidden)
+This will load the SDK and sets all the default options. Only `access_token` is required. Replace this with the oauth token retrieved from `http://thingiverse.com/login/oauth/access_token`. (This should be done server side in order to keep your app's `client_secret` hidden)
 
     <script>
-    	TV.init({
-    		access_token: '[insert user oauth code here]',
-    		api_url: 'https://api.thingiverse.com',
-    		target_url: 'http://thingiverse.com',
-    		target: parent
-    	});
+        TV.init({
+            access_token: '[insert user oauth code here]',
+            api_url: 'https://api.thingiverse.com',
+            target_url: 'http://thingiverse.com',
+            target: parent
+        });
     </script>
+
+Be sure to check out the [Thingiverse Getting Started documentation](http://www.thingiverse.com/developers/getting-started) to learn more about authentication steps and working with the Thingiverse API.
 
 ### Testing Iframe Communication
 
-To ensure that everything is configured correctly and your app is able to talk to Thingiverse using cross-domain postMessage, you can try sending an echo request message.  Thingiverse will send a message back to your app containing whatever you send to it.  This can be done with the following javascript.
+To ensure that everything is configured correctly and your app is able to talk to Thingiverse using cross-domain postMessage, you can try sending an echo request message. Thingiverse will send a message back to your app containing whatever you send to it. This can be done with the following javascript.
 
     TV.sendMessage({cmd: 'echo', params: {foo: 'bar'}}, function(data) {
       alert('gotEcho: ' + JSON.stringify(data));
@@ -39,54 +41,69 @@ To ensure that everything is configured correctly and your app is able to talk t
 Dialogs
 -------
 
-Dialogs are an easy way for your app to do common interactions with Thingiverse such as searching for a Thing and selecting a File by popping up a modal window saving you the time to design your own UI.  This is done using the `TV.dialog()` function.
+Dialogs are an easy way for your app to interact with Thingiverse by popping up a modal window saving you the time to design your own UI. This is done using the `TV.dialog()` function.
 
-This example shows a search box.  If the user cancels the dialog and doesn't select anything, `data.status` will be `cancelled`.
+This example shows an address window. If the user cancels the dialog or closes the window, `data.status` will be `cancelled`.
 
-    TV.dialog('thing_search', function(data) {
+    TV.dialog('address', function(data) {
       if (data.status != 'cancelled') {
-        alert('You selected Thing #' + data.thing_id);
+          if (data.ok && data.id) {
+              alert('Address ID #' + data.id);
+          } else if (data.error) {
+              alert('Error: ' + data.error);
+          }
       }
     });
 
-Parameters can also be passed to some dialogs.  For instance, this shows a search box with search results for the string `makerbot` pre-loaded.
-
-    TV.dialog('thing_search', {q: 'makerbot'}, function(data) {
+Parameters can also be passed to some dialogs. For instance, this shows a payment dialog which needs information to create an order.
+    
+    var params = {
+        thing_id: THING_ID,
+        amount: TOTAL_ORDER_AMOUNT,
+        charges: {
+            'SOME CHARGE NAME': #.##,
+            'ANOTHER CHARGE NAME': #.##,
+            'Shipping': #.##
+        },
+        address_id: address_id
+     };
+    
+    TV.dialog('payment', params, function(data) {
       if (data.status != 'cancelled') {
-        alert('You selected Thing #' + data.thing_id);
+          if (data.ok && data.order_id) {
+              alert('Order ID: ' + data.order_id);
+          } else if (data.error) {
+              alert('Errors: ' + data.error);
+          }
       }
     });
 
 ### Dialog Methods
 
-#### file_select
-
-* Parameters: `thing_id`, `extension` (optional, comma delimited list of file extensions to filter by)
-* Returns: `thing_id` and `file_id`
-
-#### thing_select
+#### address
 
 * Parameters: none
-* Returns: `thing_id`
+* Returns: `address_id`
 
-#### thing_search
+#### payment
 
-* Parameters: `q`
-* Returns: `thing_id`
+* Parameters: `thing_id`, `amount` (total in USD), `charges` (see below), `address_id` (optional address_id to use for shipping)
+* Returns: `ok` or `error`, `order_id`, `shipping_address`
+* `charges`: An object breaking down the line items of the order. Use the reserved `Shipping` to indicate shipping charges. Attribute name will be used for display in order breakdown. Amounts are in USD. Example:
 
-#### thing_save
-
-* Parameters: `id` (optional, for editing an existing thing), `name`, `description`, `category`, `tags`, `license`, `is_published`, `is_wip`
-* Returns: hash of values that can then be sent in an `API` request to create/update thing
+`charges = {
+    'Filament Charge': 2.50,
+    'Rush Fee': 1.25,
+    'Shipping': 3.00
+}`
 
 API
 ---
 
-Provides a way to access the Thingiverse API endpoints (currently read-only GET requests).  See API docs for full API documentation.  Pass it the enpoint (either relative or full url) and a callback. Here is the basic syntax.
+Provides a way to access the Thingiverse API endpoints (currently read-only GET requests). See API docs for full API documentation. Pass it the endpoint (either relative or full url) and a callback. Here is the basic syntax.
 
-    TV.api('/newest', function(data) {
-      newest_thing = data[0];
-      alert('gotNewest: ' + JSON.stringify(newest_thing));
+    TV.api('/orders/ORDER_ID', function(data) {
+      alert('Order: ' + JSON.stringify(data));
     });
 
 Utility
