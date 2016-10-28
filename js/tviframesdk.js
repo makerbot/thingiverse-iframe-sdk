@@ -26,7 +26,12 @@ var TV = (function() {
   // communication
 
   self.receiveMessage = function(data) {
-    msg = JSON.parse(data);
+    try {
+        msg = JSON.parse(data);
+    } catch (e) {
+        return false;
+    }
+      
     if ($.inArray(msg.callback, Object.keys(self.callbacks)) > -1) {
       self.callbacks[msg.callback](msg.result);
       delete self.callbacks[msg.callback];
