@@ -83,7 +83,7 @@ Parameters can also be passed to some dialogs. For instance, this shows a paymen
 #### address
 
 * Parameters: none
-* Returns: `address_id`
+* Returns: {'id': `address_id`, 'shipping_address': {address fields...}}
 
 #### payment
 
