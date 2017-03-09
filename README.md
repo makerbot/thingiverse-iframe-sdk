@@ -65,7 +65,8 @@ Parameters can also be passed to some dialogs. For instance, this shows a paymen
             'ANOTHER CHARGE NAME': #.##,
             'Shipping': #.##
         },
-        address_id: address_id
+        address_id: ADDRESS_ID,
+        app_transaction_code: APP_TRANSACTION_CODE
      };
     
     TV.dialog('payment', params, function(data) {
@@ -87,7 +88,7 @@ Parameters can also be passed to some dialogs. For instance, this shows a paymen
 
 #### payment
 
-* Parameters: `thing_id`, `amount` (total in USD), `charges` (see below), `address_id` (optional address_id to use for shipping)
+* Parameters: `thing_id`, `amount` (total in USD), `charges` (see below), `address_id` (optional address_id to use for shipping), `app_transaction_code` (optional id to use for referencing order on your side)
 * Returns: `ok` or `error`, `order_id`, `shipping_address`
 * `charges`: An object breaking down the line items of the order. Use the reserved `Shipping` to indicate shipping charges. Attribute name will be used for display in order breakdown. Amounts are in USD. Example:
 
